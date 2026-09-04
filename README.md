@@ -13,7 +13,7 @@
 ### Class Diagram
 ![Class Diagram](diagrams/class-diagram.png)
 
-### Sequence Diagram (Book Ticket via UPI)
+### Sequence Diagram 
 ![Sequence Diagram](diagrams/sequence-diagram.png)
 ---
 ##  Demo Run 
