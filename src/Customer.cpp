@@ -1,6 +1,6 @@
+#pragma once
 #include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
 
 class Customer {
@@ -11,27 +11,23 @@ private:
     string email;
 
 public:
-    Customer(int id, string n, string p, string e) {
-        customerId = id;
-        name = n;
-        phone = p;
-        email = e;
+    Customer(int id, string n, string p, string e)
+        : customerId(id), name(n), phone(p), email(e) {}
+
+    void createBooking() const {
+        cout << "Booking created for customer: " << name << "\n";
     }
 
-    void createBooking() {
-        cout << "Booking created for customer: " << name << endl;
+    void cancelBooking() const {
+        cout << "Booking cancelled for customer: " << name << "\n";
     }
 
-    void cancelBooking() {
-        cout << "Booking cancelled for customer: " << name << endl;
+    void viewHistory() const {
+        cout << "Viewing booking history for: " << name << "\n";
     }
 
-    void viewHistory() {
-        cout << "Viewing booking history for: " << name << endl;
-    }
-
-    string getName() { return name; }
-    int getCustomerId() { return customerId; }
-    string getPhone() { return phone; }
-    string getEmail() { return email; }
+    int getCustomerId() const { return customerId; }
+    string getName() const { return name; }
+    string getPhone() const { return phone; }
+    string getEmail() const { return email; }
 };

@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
@@ -7,36 +8,29 @@ private:
     int seatId;
     char rowNumber;
     int seatNumber;
-    string type; // Gold, Silver, Platinum
+    string type;   // "Silver", "Gold", "Platinum"
     bool isBooked;
 
 public:
-    Seat(int id, char row, int num, string t) {
-        seatId = id;
-        rowNumber = row;
-        seatNumber = num;
-        type = t;
-        isBooked = false;
-    }
+    Seat(int id, char row, int num, string t)
+        : seatId(id), rowNumber(row), seatNumber(num), type(t), isBooked(false) {}
 
     void book() {
         isBooked = true;
-        cout << "Seat " << rowNumber << seatNumber << " booked successfully!" << endl;
+        cout << "Seat " << rowNumber << seatNumber << " booked.\n";
     }
 
     void unbook() {
         isBooked = false;
-        cout << "Seat " << rowNumber << seatNumber << " unbooked." << endl;
+        cout << "Seat " << rowNumber << seatNumber << " unbooked.\n";
     }
 
-    bool isAvailable() {
-        return !isBooked;
-    }
+    bool isAvailable() const { return !isBooked; }
 
-    string getSeatInfo() {
+    string getSeatInfo() const {
         return string(1, rowNumber) + to_string(seatNumber) + " (" + type + ")";
     }
 
-    string getType() { return type; }
-    int getSeatId() { return seatId; }
+    int getSeatId() const { return seatId; }
+    string getType() const { return type; }
 };

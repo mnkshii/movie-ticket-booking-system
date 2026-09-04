@@ -1,6 +1,6 @@
+#pragma once
 #include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
 
 class Show {
@@ -12,24 +12,18 @@ private:
     string date;
 
 public:
-    Show(int id, int mId, int sId, string time, string d) {
-        showId = id;
-        movieId = mId;
-        screenId = sId;
-        showTime = time;
-        date = d;
+    Show(int id, int mId, int sId, string time, string d)
+        : showId(id), movieId(mId), screenId(sId), showTime(time), date(d) {}
+
+    void getAvailableSeats() const {
+        cout << "Show ID: " << showId << "\n"
+             << "Date: " << date << "  Time: " << showTime << "\n"
+             << "Checking seat availability...\n";
     }
 
-    void getAvailableSeats() {
-        cout << "Show ID: " << showId << endl;
-        cout << "Date: " << date << " Time: " << showTime << endl;
-        cout << "Checking seat availability for this show..." << endl;
-        // This would normally query Screen for seat info
-    }
-
-    int getMovieId() { return movieId; }
-    int getScreenId() { return screenId; }
-    int getShowId() { return showId; }
-    string getShowTime() { return showTime; }
-    string getDate() { return date; }
+    int getShowId() const { return showId; }
+    int getMovieId() const { return movieId; }
+    int getScreenId() const { return screenId; }
+    string getShowTime() const { return showTime; }
+    string getDate() const { return date; }
 };

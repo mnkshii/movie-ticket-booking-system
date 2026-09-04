@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -10,50 +11,47 @@ private:
     int customerId;
     vector<int> showSeatIds;
     double totalAmount;
-    string bookingStatus; // Pending, Confirmed, Cancelled
+    string bookingStatus;   // Pending, Confirmed, Cancelled
     time_t bookingTime;
 
 public:
-    Booking(int id, int custId) {
-        bookingId = id;
-        customerId = custId;
-        totalAmount = 0;
-        bookingStatus = "Pending";
-        bookingTime = time(nullptr);
-    }
+    Booking(int id, int custId)
+        : bookingId(id), customerId(custId), totalAmount(0),
+          bookingStatus("Pending"), bookingTime(time(nullptr)) {}
 
     double calculateTotal(double basePrice, double taxRate = 0.18) {
-        double tax = basePrice * taxRate;
-        totalAmount = basePrice + tax;
+        totalAmount = basePrice * (1 + taxRate);
         return totalAmount;
     }
 
     void confirm() {
         bookingStatus = "Confirmed";
-        cout << "Booking #" << bookingId << " confirmed!" << endl;
+        cout << "Booking #" << bookingId << " confirmed!\n";
     }
 
     void cancel() {
         bookingStatus = "Cancelled";
-        cout << "Booking #" << bookingId << " cancelled." << endl;
+        cout << "Booking #" << bookingId << " cancelled.\n";
     }
 
-    void generateTicket() {
-        cout << "========================================" << endl;
-        cout << "          MOVIE TICKET                  " << endl;
-        cout << "========================================" << endl;
-        cout << "Booking ID: " << bookingId << endl;
-        cout << "Status: " << bookingStatus << endl;
-        cout << "Total Amount: Rs. " << totalAmount << endl;
-        cout << "Booking Time: " << ctime(&bookingTime);
-        cout << "========================================" << endl;
+    void generateTicket() const {
+        cout << "\n========================================\n"
+             << "          MOVIE TICKET\n"
+             << "========================================\n"
+             << "Booking ID : " << bookingId << "\n"
+             << "Status     : " << bookingStatus << "\n"
+             << "Total      : Rs. " << totalAmount << "\n"
+             << "Time       : " << ctime(&bookingTime)
+             << "========================================\n";
     }
 
     void addSeat(int showSeatId) {
         showSeatIds.push_back(showSeatId);
     }
 
-    int getBookingId() { return bookingId; }
-    string getBookingStatus() { return bookingStatus; }
-    double getTotalAmount() { return totalAmount; }
+    int getBookingId() const { return bookingId; }
+    int getCustomerId() const { return customerId; }
+    string getBookingStatus() const { return bookingStatus; }
+    double getTotalAmount() const { return totalAmount; }
+    vector<int> getShowSeatIds() const { return showSeatIds; }
 };

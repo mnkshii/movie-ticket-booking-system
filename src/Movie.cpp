@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
@@ -7,36 +8,28 @@ private:
     int movieId;
     string title;
     string genre;
-    int duration; // in minutes
+    int duration;     // minutes
     string language;
     float rating;
 
 public:
-    Movie(int id, string t, string g, int d, string lang, float r) {
-        movieId = id;
-        title = t;
-        genre = g;
-        duration = d;
-        language = lang;
-        rating = r;
+    Movie(int id, string t, string g, int d, string lang, float r)
+        : movieId(id), title(t), genre(g), duration(d), language(lang), rating(r) {}
+
+    void getDetails() const {
+        cout << "Movie ID: " << movieId << "\n"
+             << "Title: " << title << "\n"
+             << "Genre: " << genre << "\n"
+             << "Duration: " << duration << " min\n"
+             << "Language: " << language << "\n"
+             << "Rating: " << rating << "/10\n";
     }
 
-    void getDetails() {
-        cout << "Movie ID: " << movieId << endl;
-        cout << "Title: " << title << endl;
-        cout << "Genre: " << genre << endl;
-        cout << "Duration: " << duration << " minutes" << endl;
-        cout << "Language: " << language << endl;
-        cout << "Rating: " << rating << "/10" << endl;
-    }
-
-    void updateDetails(string newTitle, string newGenre, float newRating) {
-        title = newTitle;
-        genre = newGenre;
-        rating = newRating;
-        cout << "Movie details updated successfully!" << endl;
-    }
-
-    string getTitle() { return title; }
-    int getMovieId() { return movieId; }
+    // Getters
+    int getMovieId() const { return movieId; }
+    string getTitle() const { return title; }
+    string getGenre() const { return genre; }
+    int getDuration() const { return duration; }
+    string getLanguage() const { return language; }
+    float getRating() const { return rating; }
 };

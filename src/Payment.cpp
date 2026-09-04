@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
@@ -12,32 +13,27 @@ protected:
     string transactionId;
 
 public:
-    Payment(int pId, int bId, double amt, string m) {
-        paymentId = pId;
-        bookingId = bId;
-        amount = amt;
-        method = m;
-        status = "Pending";
-        transactionId = "";
-    }
+    Payment(int pId, int bId, double amt, string m)
+        : paymentId(pId), bookingId(bId), amount(amt), method(m),
+          status("Pending"), transactionId("") {}
 
-    virtual bool processPayment() = 0; // Pure virtual - abstract class
-    
+    virtual bool processPayment() = 0;
+
     bool refund() {
         if (status == "Completed") {
             status = "Refunded";
-            cout << "Refund processed successfully!" << endl;
+            cout << "Refund processed successfully.\n";
             return true;
         }
-        cout << "Refund failed: Payment not completed." << endl;
+        cout << "Refund failed: Payment not completed.\n";
         return false;
     }
 
-    void verifyStatus() {
-        cout << "Payment Status: " << status << endl;
+    void verifyStatus() const {
+        cout << "Payment Status: " << status << "\n";
     }
 
-    int getPaymentId() { return paymentId; }
-    string getStatus() { return status; }
-    string getTransactionId() { return transactionId; }
+    int getPaymentId() const { return paymentId; }
+    string getStatus() const { return status; }
+    string getTransactionId() const { return transactionId; }
 };

@@ -1,6 +1,6 @@
+#pragma once
 #include <iostream>
 #include <string>
-#include <fstream>
 using namespace std;
 
 class TicketPrinter {
@@ -8,36 +8,27 @@ private:
     string ticketFormat;
 
 public:
-    TicketPrinter(string format = "PDF") {
-        ticketFormat = format;
+    TicketPrinter(string format = "PDF") : ticketFormat(format) {}
+
+    void printTicket(int bookingId, const string& customerName, const string& movieTitle,
+                     const string& showTime, const string& seatInfo, double amount) const {
+        cout << "\n╔══════════════════════════════════════════════════════╗\n"
+             << "║                  MOVIE TICKET                       ║\n"
+             << "╠══════════════════════════════════════════════════════╣\n"
+             << "║  Booking ID   : " << bookingId << "\n"
+             << "║  Customer     : " << customerName << "\n"
+             << "║  Movie        : " << movieTitle << "\n"
+             << "║  Show Time    : " << showTime << "\n"
+             << "║  Seats        : " << seatInfo << "\n"
+             << "║  Total Amount : Rs. " << amount << "\n"
+             << "║  Format       : " << ticketFormat << "\n"
+             << "║  Status       : CONFIRMED\n"
+             << "╚══════════════════════════════════════════════════════╝\n";
     }
 
-    void printTicket(int bookingId, string customerName, string movieTitle, 
-                     string showTime, string seatInfo, double amount) {
-        cout << "\n";
-        cout << "╔══════════════════════════════════════════════════════╗\n";
-        cout << "║                  MOVIE TICKET                       ║\n";
-        cout << "╠══════════════════════════════════════════════════════╣\n";
-        cout << "║  Booking ID   : " << bookingId << "\n";
-        cout << "║  Customer     : " << customerName << "\n";
-        cout << "║  Movie        : " << movieTitle << "\n";
-        cout << "║  Show Time    : " << showTime << "\n";
-        cout << "║  Seats        : " << seatInfo << "\n";
-        cout << "║  Total Amount : Rs. " << amount << "\n";
-        cout << "║  Format       : " << ticketFormat << "\n";
-        cout << "║  Status       : CONFIRMED\n";
-        cout << "╚══════════════════════════════════════════════════════╝\n";
-        cout << "\n";
+    void generatePDF(int bookingId) const {
+        cout << "Generating PDF ticket: Ticket_" << bookingId << ".pdf\n";
     }
 
-    void generatePDF(int bookingId) {
-        // Simulate PDF generation
-        string filename = "Ticket_" + to_string(bookingId) + ".pdf";
-        cout << "Generating PDF ticket: " << filename << endl;
-        // In real implementation, this would create a PDF file
-    }
-
-    void setTicketFormat(string format) {
-        ticketFormat = format;
-    }
+    void setTicketFormat(const string& format) { ticketFormat = format; }
 };

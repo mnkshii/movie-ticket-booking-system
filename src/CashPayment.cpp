@@ -1,5 +1,7 @@
+#pragma once
 #include <iostream>
 #include <string>
+#include <ctime>
 using namespace std;
 
 class CashPayment : public Payment {
@@ -9,36 +11,30 @@ private:
 
 public:
     CashPayment(int pId, int bId, double amt, double cash)
-        : Payment(pId, bId, amt, "Cash") {
-        cashTendered = cash;
-        changeAmount = 0;
-    }
+        : Payment(pId, bId, amt, "Cash"), cashTendered(cash), changeAmount(0) {}
 
     bool processPayment() override {
-        cout << "Processing Cash payment..." << endl;
-        cout << "Amount Due: Rs. " << amount << endl;
-        cout << "Cash Tendered: Rs. " << cashTendered << endl;
+        cout << "Processing Cash payment...\n"
+             << "Amount Due: Rs. " << amount << "\n"
+             << "Cash Tendered: Rs. " << cashTendered << "\n";
 
         if (cashTendered >= amount) {
             changeAmount = cashTendered - amount;
             status = "Completed";
             transactionId = "CASH-" + to_string(paymentId) + "-" + to_string(time(nullptr));
-            cout << "Cash payment successful!" << endl;
-            cout << "Change Amount: Rs. " << changeAmount << endl;
-            cout << "Transaction ID: " << transactionId << endl;
+            cout << "Cash payment successful!\nChange: Rs. " << changeAmount << "\n"
+                 << "Transaction ID: " << transactionId << "\n";
             return true;
         } else {
             status = "Failed";
-            cout << "Cash payment failed: Insufficient cash" << endl;
-            cout << "Please provide Rs. " << (amount - cashTendered) << " more." << endl;
+            cout << "Cash payment failed: Insufficient cash.\n"
+                 << "Please provide Rs. " << (amount - cashTendered) << " more.\n";
             return false;
         }
     }
 
-    double calculateChange() {
-        if (cashTendered >= amount) {
-            return cashTendered - amount;
-        }
+    double calculateChange() const {
+        if (cashTendered >= amount) return cashTendered - amount;
         return 0;
     }
 };

@@ -1,5 +1,7 @@
+#pragma once
 #include <iostream>
 #include <string>
+#include <ctime>
 using namespace std;
 
 class CardPayment : public Payment {
@@ -11,34 +13,28 @@ private:
 
 public:
     CardPayment(int pId, int bId, double amt, string cardNo, string holder, string exp, string c)
-        : Payment(pId, bId, amt, "Card") {
-        cardNumber = cardNo;
-        cardHolder = holder;
-        expiry = exp;
-        cvv = c;
-    }
+        : Payment(pId, bId, amt, "Card"), cardNumber(cardNo), cardHolder(holder),
+          expiry(exp), cvv(c) {}
 
     bool processPayment() override {
-        cout << "Processing Card payment..." << endl;
-        cout << "Card Type: " << (cardNumber.substr(0, 1) == "4" ? "Visa" : "MasterCard") << endl;
-        cout << "Card Holder: " << cardHolder << endl;
-        cout << "Amount: Rs. " << amount << endl;
+        cout << "Processing Card payment...\n"
+             << "Card Type: " << (cardNumber[0] == '4' ? "Visa" : "MasterCard") << "\n"
+             << "Card Holder: " << cardHolder << "\n"
+             << "Amount: Rs. " << amount << "\n";
 
-        // Simulate card validation
         if (cardNumber.length() >= 16 && cvv.length() == 3) {
             status = "Completed";
             transactionId = "CARD-" + to_string(paymentId) + "-" + to_string(time(nullptr));
-            cout << "Card payment successful!" << endl;
-            cout << "Transaction ID: " << transactionId << endl;
+            cout << "Card payment successful!\nTransaction ID: " << transactionId << "\n";
             return true;
         } else {
             status = "Failed";
-            cout << "Card payment failed: Invalid card details" << endl;
+            cout << "Card payment failed: Invalid card details.\n";
             return false;
         }
     }
 
-    bool validateCard() {
+    bool validateCard() const {
         return cardNumber.length() >= 16 && cvv.length() == 3;
     }
 };
